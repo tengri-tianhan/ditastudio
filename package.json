@@ -1,0 +1,75 @@
+{
+  "name": "dita-studio",
+  "productName": "DITA Studio",
+  "version": "2.0.0",
+  "description": "DITA + Markdown/MDX authoring workbench: topic templates, map/bookmap browser with drag-and-drop ordering, live preview, HTML/PDF export, dependency queries, 3-minute autosave.",
+  "author": "Galano Han",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable",
+    "dist:mac": "electron-builder --mac",
+    "dist:installer": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3"
+  },
+  "dependencies": {
+    "marked": "4.3.0",
+    "monaco-editor": "^0.52.2"
+  },
+  "build": {
+    "appId": "me.galanohan.ditastudio",
+    "productName": "DITA Studio",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "README.md",
+      "CHANGELOG.md",
+      "README.md",
+      "node_modules/marked/**/*",
+      "node_modules/monaco-editor/min/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg", "arch": ["arm64", "x64"] },
+        { "target": "zip", "arch": ["arm64"] }
+      ],
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "artifactName": "DITA-Studio-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "DITA-Studio-Portable-${version}.${ext}"
+    }
+  }
+}
