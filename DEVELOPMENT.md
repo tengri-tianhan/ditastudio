@@ -7,7 +7,7 @@ history, see `CHANGELOG.md`.
 - **Stack**: Electron 31 (Chromium + Node.js), Monaco Editor, `marked`,
   vanilla JavaScript — no framework, no bundler, no build step for the
   renderer.
-- **License**: MIT. Modify, rebrand, redistribute, and use commercially as
+- **License**: Apache 2.0. Modify, rebrand, redistribute, and use commercially as
   you wish.
 
 ---
