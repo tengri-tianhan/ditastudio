@@ -1,4 +1,6 @@
-# DITA Studio 1.9
+
+# DITA Studio 2.0 — User Guide
+
 
 DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
 Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
@@ -7,22 +9,37 @@ manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
 publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
 
-## 0. Downloads
 
-See https://github.com/tengri-tianhan/ditastudio/releases/tag/v1.9
+## Feature overview (current)
+
+- Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
+  templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
+  · "/" insert menu, element & keyref completion · visual table builder · media
+  insertion (images, mp4/mp3, online embeds) · **AI writing assistant** (free
+  local models or keyed APIs).
+- Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
+  tree-to-map drag · key space with keyref/conref resolution · DITAVAL
+  conditional filtering.
+- Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
+  · dependency queries with backlinks · rename/move with reference rewrite ·
+  project search.
+- Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
+  · responsive documentation site with TOC, refine-by search, PDF download, and
+  a checkbox front-page designer · DITA-OT integration.
+- Safety: configurable autosave (default 3 min) with snapshot diff/restore
 
 ---
 
 ## 1. Installation
 
-Two builds are provided:
+DITA Studio runs on **Windows and macOS**. Pick the build for your platform:
 
-| File                                 | What it is                                                   |
-| ------------------------------------ | ------------------------------------------------------------ |
-| `DITA-Studio-Setup-<version>.exe`    | NSIS installer. Lets you choose the install directory and creates a desktop shortcut. |
-| `DITA-Studio-Portable-<version>.exe` | Single-file portable build. Run it from anywhere (USB stick, network share); no installation. |
-
-Both are 64-bit Windows builds.
+| File | Platform | What it is |
+| --- | --- | --- |
+| `DITA-Studio-Setup-<version>.exe` | Windows x64 | NSIS installer. Lets you choose the install directory and creates a desktop shortcut. |
+| `DITA-Studio-Portable-<version>.exe` | Windows x64 | Single-file portable build. Run it from anywhere (USB stick, network share); no installation. |
+| `DITA-Studio-<version>-macOS-arm64.zip` | macOS (Apple Silicon) | Unzip, then drag **DITA Studio.app** into `/Applications` (or run it from anywhere). |
+| `DITA Studio-<version>.dmg` | macOS | Disk image with the usual drag-to-Applications window. Produced by running `npm run dist:mac` from the source on any Mac (the dmg format itself can only be packaged on macOS); arm64 and Intel x64 are both configured. |
 
 ### 1.1 "Windows protected your PC" (SmartScreen)
 
@@ -39,17 +56,35 @@ ways past it — any one is enough:
    the bottom → **OK**. The checkbox exists because downloaded files carry a
    "Mark of the Web" flag; unblocking removes it, and the SmartScreen dialog
    never appears again for that file. PowerShell equivalent:
-   `Unblock-File -Path "C:\path\to\DITA-Studio-Portable-1.4.0.exe"`
+   `Unblock-File -Path "C:\path\to\DITA-Studio-Portable-2.0.0.exe"`
 3. **Build it yourself**: run `npm install && npm run dist` from the source
    zip on your own machine. Locally built binaries carry no download flag.
 
-### 1.2 Where settings live
+### 1.2 "App can't be opened" on macOS (Gatekeeper)
 
-Settings (editor preferences, style pack, DITA-OT path) and per-project state
-(root map, DITAVAL choice, open tabs) are stored in the standard Electron user
-profile (`%APPDATA%\dita-studio`). Note that this applies to the **portable
-build too** — moving the portable exe to another machine does not carry your
-settings with it.
+The macOS build is likewise unsigned and not notarized, so the first launch of
+a downloaded copy is blocked by Gatekeeper. Any one of these gets you in:
+
+1. **Right-click (or Control-click) `DITA Studio.app` → Open**, then click
+   **Open** in the dialog. macOS remembers the choice; from then on it opens
+   normally. (A plain double-click only shows a dialog without an Open
+   button — the right-click route is the one that offers it.)
+2. On newer macOS versions where the Open button doesn't appear: **System
+   Settings → Privacy & Security**, scroll to the message about DITA Studio
+   being blocked, and click **Open Anyway**.
+3. Terminal equivalent — remove the quarantine flag once:
+   `xattr -dr com.apple.quarantine "/Applications/DITA Studio.app"`
+4. Or build it yourself on your Mac (`npm run dist:mac`); locally built apps
+   carry no quarantine flag.
+
+### 1.3 Where settings live
+
+Settings (editor preferences, style pack, AI provider keys, DITA-OT path) and
+per-project state (root map, DITAVAL choice, open tabs, expanded folders) are
+stored in the standard Electron user profile — `%APPDATA%\dita-studio` on
+Windows, `~/Library/Application Support/dita-studio` on macOS. Note that this
+applies to the **Windows portable build too** — moving the portable exe to
+another machine does not carry your settings with it.
 
 ---
 
@@ -307,28 +342,31 @@ Tip: add `.autosave/` to your `.gitignore`.
 
 ## 10. Keyboard shortcuts
 
-| Shortcut        | Action                                                      |
-| --------------- | ----------------------------------------------------------- |
-| Ctrl+P          | Quick open (fuzzy file search)                              |
-| Ctrl+Shift+P    | Command palette (every action, searchable)                  |
-| Ctrl+K          | Insert link — pick a file, get an `<xref>` or Markdown link |
-| Ctrl+B          | Toggle the project sidebar                                  |
-| Ctrl+N          | New file                                                    |
-| Ctrl+S          | Save                                                        |
-| Ctrl+W          | Close tab                                                   |
-| Ctrl+Shift+F    | Find in files                                               |
-| Ctrl+F          | Find/replace in the current file (Monaco)                   |
-| Ctrl+D          | Select next occurrence (Monaco)                             |
-| Alt+Click       | Add cursor (Monaco)                                         |
-| Ctrl+Z / Ctrl+Y | Undo / redo (per tab)                                       |
+On macOS, use **Cmd** wherever **Ctrl** is listed.
+
+| Shortcut | Action |
+| --- | --- |
+| Ctrl+P | Quick open (fuzzy file search) |
+| Ctrl+Shift+P | Command palette (every action, searchable) |
+| Ctrl+K | Insert link — pick a file, get an `<xref>` or Markdown link |
+| Ctrl+B | Toggle the project sidebar |
+| Ctrl+N | New file |
+| Ctrl+S | Save |
+| Ctrl+W | Close tab |
+| Ctrl+Shift+F | Find in files |
+| Ctrl+F | Find/replace in the current file (Monaco) |
+| Ctrl+D | Select next occurrence (Monaco) |
+| Alt+Click | Add cursor (Monaco) |
+| Ctrl+Z / Ctrl+Y | Undo / redo (per tab) |
 
 ---
 
 ## 11. Notes and caveats
 
-- **Unsigned binaries**: see §1.1. This is cosmetic, not a defect, but if you
-  distribute the tool to a team, either have everyone unblock once or build
-  from source on a trusted machine.
+- **Unsigned binaries**: see §1.1 (Windows SmartScreen) and §1.2 (macOS
+  Gatekeeper). This is cosmetic, not a defect, but if you distribute the tool
+  to a team, either have everyone unblock/approve once or build from source
+  on a trusted machine.
 - **Settings are per-machine** even for the portable build (§1.2).
 - **The built-in DITA renderer is a pragmatic subset** of DITA 1.3 — the
   commonly used elements render faithfully; unknown elements fall through
@@ -367,6 +405,14 @@ and an X display (xvfb works). Building on Windows itself needs nothing extra.
 ---
 
 ## 13. Version history
+
+The full changelog also ships inside the app: **Help → What's new**. Current
+release: **2.0** — AI writing assistant (free local models via Ollama/LM
+Studio, or keyed APIs: Anthropic, OpenAI, DeepSeek, Moonshot Kimi, OpenRouter
+incl. its zero-cost ":free" models), in-app user guide & changelog viewer,
+smoothness pass (persistent tree expansion, cached project reads, ranked
+quick-open, dirty-save indicator), and macOS build support (`npm run
+dist:mac` → .dmg + .zip).
 
 - **1.9** — syntax checking with fix suggestions and one-click auto-fix for
   Markdown, DITA/XML, and HTML (per-problem Fix buttons plus Fix-all); visual
