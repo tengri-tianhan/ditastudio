@@ -1,4 +1,4 @@
-# DITA Studio 1.9 — User Guide
+# DITA Studio 1.9
 
 DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
 Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
@@ -6,6 +6,10 @@ tree, a Monaco-based code editor with tabs, a drag-and-drop map/bookmap
 manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
 publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
+
+## 0. Downloads
+
+See https://github.com/tengri-tianhan/ditastudio/releases/tag/v1.9
 
 ---
 
@@ -412,6 +416,4 @@ and an X display (xvfb works). Building on Windows itself needs nothing extra.
   drag-and-drop ordering, live preview, HTML/PDF export, dependency queries,
   3-minute autosave with version history, NSIS installer + portable builds.
 
-  ## Downloads
 
-  See https://github.com/tengri-tianhan/ditastudio/releases/tag/v1.9
