@@ -411,3 +411,7 @@ and an X display (xvfb works). Building on Windows itself needs nothing extra.
 - **1.0** — DITA 1.3 templates, project tree, map/bookmap browser with
   drag-and-drop ordering, live preview, HTML/PDF export, dependency queries,
   3-minute autosave with version history, NSIS installer + portable builds.
+
+  ## Downloads
+
+  See https://github.com/tengri-tianhan/ditastudio/releases/tag/v1.9
