@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "description": "DITA + Markdown/MDX authoring workbench: topic templates, map/bookmap browser with drag-and-drop ordering, live preview, HTML/PDF export, dependency queries, 3-minute autosave.",
   "author": "Galano Han",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
