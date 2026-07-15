@@ -10,7 +10,7 @@ publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
 
 
-## Feature overview (current)
+## Feature overview
 
 - Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
   templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
@@ -29,6 +29,10 @@ without Java, without a license fee, and with sub-second startup.
 - Safety: configurable autosave (default 3 min) with snapshot diff/restore
 
 ---
+
+## Downloads
+
+See https://github.com/tengri-tianhan/ditastudio/releases/tag/v2.0 
 
 ## 1. Installation
 
