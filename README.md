@@ -1,4 +1,6 @@
-# DITA Studio 1.9 — User Guide
+# DITA Studio 2.0
+
+## Feature overview
 
 DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
 Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
@@ -7,15 +9,36 @@ manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
 publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
 
+- Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
+templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
+· "/" insert menu, element & keyref completion · visual table builder · media
+insertion (images, mp4/mp3, online embeds) · **AI writing assistant** (free
+local models or keyed APIs).
+
+- Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
+tree-to-map drag · key space with keyref/conref resolution · DITAVAL
+conditional filtering.
+
+- Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
+· dependency queries with backlinks · rename/move with reference rewrite ·
+project search.
+
+- Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
+· responsive documentation site with TOC, refine-by search, PDF download, and
+a checkbox front-page designer · DITA-OT integration.
+
+- Safety: configurable autosave (default 3 min) with snapshot diff/restore.
+
+
 ---
 
 ## 1. Installation
 
 Two builds are provided:
 
-| File                                 | What it is                                                   |
-| ------------------------------------ | ------------------------------------------------------------ |
-| `DITA-Studio-Setup-<version>.exe`    | NSIS installer. Lets you choose the install directory and creates a desktop shortcut. |
+| File | What it is |
+| --- | --- |
+| `DITA-Studio-Setup-<version>.exe` | NSIS installer. Lets you choose the install directory and creates a desktop shortcut. |
 | `DITA-Studio-Portable-<version>.exe` | Single-file portable build. Run it from anywhere (USB stick, network share); no installation. |
 
 Both are 64-bit Windows builds.
@@ -303,20 +326,20 @@ Tip: add `.autosave/` to your `.gitignore`.
 
 ## 10. Keyboard shortcuts
 
-| Shortcut        | Action                                                      |
-| --------------- | ----------------------------------------------------------- |
-| Ctrl+P          | Quick open (fuzzy file search)                              |
-| Ctrl+Shift+P    | Command palette (every action, searchable)                  |
-| Ctrl+K          | Insert link — pick a file, get an `<xref>` or Markdown link |
-| Ctrl+B          | Toggle the project sidebar                                  |
-| Ctrl+N          | New file                                                    |
-| Ctrl+S          | Save                                                        |
-| Ctrl+W          | Close tab                                                   |
-| Ctrl+Shift+F    | Find in files                                               |
-| Ctrl+F          | Find/replace in the current file (Monaco)                   |
-| Ctrl+D          | Select next occurrence (Monaco)                             |
-| Alt+Click       | Add cursor (Monaco)                                         |
-| Ctrl+Z / Ctrl+Y | Undo / redo (per tab)                                       |
+| Shortcut | Action |
+| --- | --- |
+| Ctrl+P | Quick open (fuzzy file search) |
+| Ctrl+Shift+P | Command palette (every action, searchable) |
+| Ctrl+K | Insert link — pick a file, get an `<xref>` or Markdown link |
+| Ctrl+B | Toggle the project sidebar |
+| Ctrl+N | New file |
+| Ctrl+S | Save |
+| Ctrl+W | Close tab |
+| Ctrl+Shift+F | Find in files |
+| Ctrl+F | Find/replace in the current file (Monaco) |
+| Ctrl+D | Select next occurrence (Monaco) |
+| Alt+Click | Add cursor (Monaco) |
+| Ctrl+Z / Ctrl+Y | Undo / redo (per tab) |
 
 ---
 
@@ -363,6 +386,14 @@ and an X display (xvfb works). Building on Windows itself needs nothing extra.
 ---
 
 ## 13. Version history
+
+The full changelog also ships inside the app: **Help → What's new**. Current
+release: **2.0** — AI writing assistant (free local models via Ollama/LM
+Studio, or keyed APIs: Anthropic, OpenAI, DeepSeek, Moonshot Kimi, OpenRouter
+incl. its zero-cost ":free" models), in-app user guide & changelog viewer,
+smoothness pass (persistent tree expansion, cached project reads, ranked
+quick-open, dirty-save indicator), and macOS build support (`npm run
+dist:mac` → .dmg + .zip).
 
 - **1.9** — syntax checking with fix suggestions and one-click auto-fix for
   Markdown, DITA/XML, and HTML (per-problem Fix buttons plus Fix-all); visual
