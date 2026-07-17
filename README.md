@@ -48,7 +48,7 @@ In current release, the following builds are available for use:
 - Windows installer
 - Windows Portable
 
-For homies from China mainland, visit: https://gitee.com/tengri-tianhan/ditastudio/blob/main/README.md 
+For homies from China mainland, visit: https://gitee.com/tengri-tianhan/ditastudio/blob/main/README.md.
 
 ## 1. Installation
 
