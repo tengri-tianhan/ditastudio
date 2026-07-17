@@ -38,6 +38,16 @@ Supabase or any PostgREST backend**.
 
 ---
 
+# 0. Download
+
+To download the v2.1 builds for Windows or Mac OS, or to download the source code, visit: https://github.com/tengri-tianhan/ditastudio/releases/tag/v2.1
+
+In current release, the following builds are available for use:
+
+- Mac OS Arm64
+- Windows installer
+- Windows Portable 
+
 ## 1. Installation
 
 DITA Studio runs on **Windows and macOS**. Pick the build for your platform:
