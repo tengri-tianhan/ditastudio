@@ -21,6 +21,7 @@ function createWindow() {
     }
   });
   win.setMenuBarVisibility(false);
+  win.once('ready-to-show', () => win.show());
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 }
 
@@ -105,6 +106,12 @@ ipcMain.handle('fs:createFile', async (_e, file, content) => {
 ipcMain.handle('fs:copyFile', async (_e, src, dest) => {
   await fsp.mkdir(path.dirname(dest), { recursive: true });
   await fsp.copyFile(src, dest);
+  return true;
+});
+
+ipcMain.handle('fs:copyDir', async (_e, src, dest) => {
+  await fsp.mkdir(dest, { recursive: true });
+  await fsp.cp(src, dest, { recursive: true });
   return true;
 });
 
@@ -251,6 +258,31 @@ ipcMain.handle('app:readDoc', async (_e, kind) => {
   const file = kind === 'changelog' ? 'CHANGELOG.md' : 'README.md';
   try { return await fsp.readFile(path.join(__dirname, file), 'utf8'); }
   catch (e) { return '# Not available\nThis document was not bundled with the build.'; }
+});
+
+/* ---------------- IPC: knowledge base (Supabase / any PostgREST) ---------------- */
+ipcMain.handle('kb:rest', async (_e, cfg) => {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 30000);
+  try {
+    const res = await fetch(cfg.url, {
+      method: cfg.method || 'GET',
+      headers: Object.assign({
+        'content-type': 'application/json',
+        apikey: cfg.apiKey || '',
+        authorization: 'Bearer ' + (cfg.apiKey || '')
+      }, cfg.headers || {}),
+      body: cfg.body ? JSON.stringify(cfg.body) : undefined,
+      signal: ctl.signal
+    });
+    const raw = await res.text();
+    if (!res.ok) return { error: `HTTP ${res.status}: ${raw.slice(0, 300)}` };
+    try { return { data: raw ? JSON.parse(raw) : null }; } catch (e) { return { data: raw }; }
+  } catch (err) {
+    return { error: err.message || String(err) };
+  } finally {
+    clearTimeout(timer);
+  }
 });
 
 /* ---------------- IPC: AI assistant ---------------- */

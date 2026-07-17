@@ -1,5 +1,44 @@
 # DITA Studio — Changelog
 
+## 2.1.0 — 2026-07-17
+
+### Added
+- **Visual (WYSIWYG) editing mode** (Ctrl+Shift+V) for DITA/LwDITA topics and
+  Markdown/MDX: formatted editable page with a formatting toolbar; clean
+  round-trip serialization back to source. Content that cannot be safely
+  round-tripped (conref/conkeyref/keyref, equations, complex elements) is
+  preserved verbatim as locked chips and remains editable in source view.
+- **Math formulas**: Edit → Insert math formula… (LaTeX, live preview).
+  Rendered by KaTeX in preview, HTML export, PDF, and doc sites; KaTeX assets
+  are copied into site exports automatically when math is present.
+- **Symbol picker**: Edit → Insert symbol… with Greek, math, arrows,
+  sub/superscripts, units, currency, and CJK punctuation categories.
+- **Knowledge base**: Tools → Knowledge base (Supabase)… — test, sync
+  (batched upsert keyed by project-relative path), and search (Chinese
+  supported) against Supabase or any PostgREST endpoint; results open the
+  local file.
+- **Chinese support**: CJK font stacks in editor, preview, HTML/PDF, and doc
+  sites; single-character Chinese queries in site search; lang="zh" on sites
+  with Chinese titles; new lint rule fixing full-width quotes/equals inside
+  XML tags (body text untouched).
+- **License & contact**: Apache 2.0 LICENSE and NOTICE ship with the app;
+  Help → License & contact; author contact tengriih@gmail.com.
+
+### Fixed
+- **AI provider selector ignored selection.** Root cause: leftover duplicate
+  markup (a phantom AI pane, a phantom dialog, and a twin toolbar button)
+  created duplicate element ids, so options and event handlers were bound to
+  a hidden orphan element while the visible selector stayed inert. The
+  duplicates were removed and the pane mode list normalized; switching
+  providers now updates model, key field, and hint immediately.
+
+### Performance
+- Faster cold start: the window is created hidden and shown on ready-to-show
+  (no white flash); restoring the last project is deferred until the window
+  is idle. Measured renderer boot ~0.7 s in CI environment.
+- Preview repaints are skipped when the content signature is unchanged.
+- Doc-site export writes files in parallel batches.
+
 ## 2.0
 - **AI writing assistant** (View → AI assistant): improve, fix grammar, translate (EN/中文), summarize to shortdesc, continue writing, or run any custom instruction on the selection or whole document — output is reviewed first, then inserted or replaced (undoable). Providers: **free local models** via Ollama or LM Studio (no account, fully private), and keyed APIs — Anthropic Claude, OpenAI, DeepSeek, Moonshot Kimi, and OpenRouter (which includes zero-cost ":free" models) — each with a "Get key" link to its console, editable model name, and locally stored key.
 - **Help menu** now opens the full **User guide** and **What's new (changelog)** inside the app.
