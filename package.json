@@ -1,10 +1,10 @@
 {
   "name": "dita-studio",
   "productName": "DITA Studio",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "DITA + Markdown/MDX authoring workbench: topic templates, map/bookmap browser with drag-and-drop ordering, live preview, HTML/PDF export, dependency queries, 3-minute autosave.",
   "author": "Galano Han",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -18,8 +18,11 @@
     "electron-builder": "24.13.3"
   },
   "dependencies": {
+    "katex": "^0.17.0",
     "marked": "4.3.0",
-    "monaco-editor": "^0.52.2"
+    "monaco-editor": "^0.52.2",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2"
   },
   "build": {
     "appId": "me.galanohan.ditastudio",
@@ -30,8 +33,13 @@
       "renderer/**/*",
       "README.md",
       "CHANGELOG.md",
+      "LICENSE",
+      "NOTICE",
       "README.md",
       "node_modules/marked/**/*",
+      "node_modules/katex/dist/**/*",
+      "node_modules/turndown/dist/**/*",
+      "node_modules/turndown-plugin-gfm/dist/**/*",
       "node_modules/monaco-editor/min/**/*",
       "package.json"
     ],
@@ -40,8 +48,19 @@
     },
     "mac": {
       "target": [
-        { "target": "dmg", "arch": ["arm64", "x64"] },
-        { "target": "zip", "arch": ["arm64"] }
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
       ],
       "category": "public.app-category.developer-tools"
     },
