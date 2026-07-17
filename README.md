@@ -46,7 +46,9 @@ In current release, the following builds are available for use:
 
 - Mac OS Arm64
 - Windows installer
-- Windows Portable 
+- Windows Portable
+
+For homies from China mainland, visit: https://gitee.com/tengri-tianhan/ditastudio/blob/main/README.md 
 
 ## 1. Installation
 
