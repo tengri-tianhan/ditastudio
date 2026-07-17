@@ -1,8 +1,15 @@
 # DITA Studio 2.1 — User Guide
 
+DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
+Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
+tree, a Monaco-based code editor with tabs, a drag-and-drop map/bookmap
+manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
+publishing, dependency queries, live validation, and timed local snapshots —
+without Java, without a license fee, and with sub-second startup.
+
 ## Feature overview (current)
 
-Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
+- Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
 templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
 · **visual (WYSIWYG) editing mode** for DITA topics and Markdown/MDX ·
 "/" insert menu, element & keyref completion · visual table builder ·
@@ -10,25 +17,24 @@ templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
 insertion (images, mp4/mp3, online embeds) · **AI writing assistant** (free
 local models or keyed APIs) · first-class CJK authoring (font stacks,
 IME-safe editing, full-width-character lint).
-Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
+
+- Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
 tree-to-map drag · key space with keyref/conref resolution · DITAVAL
 conditional filtering.
-Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
+
+- Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
 · dependency queries with backlinks · rename/move with reference rewrite ·
 project search.
-Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
+
+- Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
 · responsive documentation site with TOC, refine-by search (Chinese included,
 single-character queries work), PDF download, and a checkbox front-page
 designer · DITA-OT integration · **knowledge-base sync & search against
 Supabase or any PostgREST backend**.
-Safety: configurable autosave (default 3 min) with snapshot diff/restore.
 
-DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
-Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
-tree, a Monaco-based code editor with tabs, a drag-and-drop map/bookmap
-manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
-publishing, dependency queries, live validation, and timed local snapshots —
-without Java, without a license fee, and with sub-second startup.
+- Safety: configurable autosave (default 3 min) with snapshot diff/restore.
+
+
 
 ---
 
