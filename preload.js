@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('api', {
   createFile: (f, c) => ipcRenderer.invoke('fs:createFile', f, c),
   createFolder: d => ipcRenderer.invoke('fs:createFolder', d),
   copyFile: (a, b) => ipcRenderer.invoke('fs:copyFile', a, b),
+  copyDir: (a, b) => ipcRenderer.invoke('fs:copyDir', a, b),
   renamePath: (a, b) => ipcRenderer.invoke('fs:rename', a, b),
   deletePath: p => ipcRenderer.invoke('fs:delete', p),
   collectAuthoringFiles: root => ipcRenderer.invoke('fs:collectAuthoringFiles', root),
@@ -27,6 +28,7 @@ contextBridge.exposeInMainWorld('api', {
   openExternal: u => ipcRenderer.invoke('shell:openExternal', u),
   readDoc: k => ipcRenderer.invoke('app:readDoc', k),
   aiChat: cfg => ipcRenderer.invoke('ai:chat', cfg),
+  kbRest: cfg => ipcRenderer.invoke('kb:rest', cfg),
   openExternal: u => ipcRenderer.invoke('shell:openExternal', u),
   aiComplete: spec => ipcRenderer.invoke('ai:complete', spec),
 
@@ -37,6 +39,7 @@ contextBridge.exposeInMainWorld('api', {
   onDitaotLog: cb => ipcRenderer.on('ditaot:log', (_e, chunk) => cb(chunk)),
   getReadme: () => ipcRenderer.invoke('app:readme'),
   aiChat: cfg => ipcRenderer.invoke('ai:chat', cfg),
+  kbRest: cfg => ipcRenderer.invoke('kb:rest', cfg),
   aiOllamaModels: base => ipcRenderer.invoke('ai:ollamaModels', base),
 
   renderMarkdown: src => marked.parse(src),
