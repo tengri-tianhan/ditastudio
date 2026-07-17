@@ -1,6 +1,27 @@
+# DITA Studio 2.1 — User Guide
 
-# DITA Studio 2.0 — User Guide
+## Feature overview (current)
 
+Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
+templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
+· **visual (WYSIWYG) editing mode** for DITA topics and Markdown/MDX ·
+"/" insert menu, element & keyref completion · visual table builder ·
+**math formulas (LaTeX/KaTeX) and a categorized symbol picker** · media
+insertion (images, mp4/mp3, online embeds) · **AI writing assistant** (free
+local models or keyed APIs) · first-class CJK authoring (font stacks,
+IME-safe editing, full-width-character lint).
+Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
+tree-to-map drag · key space with keyref/conref resolution · DITAVAL
+conditional filtering.
+Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
+· dependency queries with backlinks · rename/move with reference rewrite ·
+project search.
+Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
+· responsive documentation site with TOC, refine-by search (Chinese included,
+single-character queries work), PDF download, and a checkbox front-page
+designer · DITA-OT integration · **knowledge-base sync & search against
+Supabase or any PostgREST backend**.
+Safety: configurable autosave (default 3 min) with snapshot diff/restore.
 
 DITA Studio is a lightweight desktop workbench for authoring DITA 1.3,
 Lightweight DITA (XDITA/MDITA), Markdown, and MDX. It gives you a project
@@ -8,25 +29,6 @@ tree, a Monaco-based code editor with tabs, a drag-and-drop map/bookmap
 manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
 publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
-
-
-## Feature overview (current)
-
-- Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
-  templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
-  · "/" insert menu, element & keyref completion · visual table builder · media
-  insertion (images, mp4/mp3, online embeds) · **AI writing assistant** (free
-  local models or keyed APIs).
-- Structure: map/bookmap browser with drag-and-drop and 5-level nesting ·
-  tree-to-map drag · key space with keyref/conref resolution · DITAVAL
-  conditional filtering.
-- Quality: live validation with fix suggestions and auto-fix (MD/DITA/XML/HTML)
-  · dependency queries with backlinks · rename/move with reference rewrite ·
-  project search.
-- Publishing: styled HTML/PDF (7 style packs + custom CSS, page numbers, cover)
-  · responsive documentation site with TOC, refine-by search, PDF download, and
-  a checkbox front-page designer · DITA-OT integration.
-- Safety: configurable autosave (default 3 min) with snapshot diff/restore
 
 ---
 
@@ -56,7 +58,7 @@ ways past it — any one is enough:
    the bottom → **OK**. The checkbox exists because downloaded files carry a
    "Mark of the Web" flag; unblocking removes it, and the SmartScreen dialog
    never appears again for that file. PowerShell equivalent:
-   `Unblock-File -Path "C:\path\to\DITA-Studio-Portable-2.0.0.exe"`
+   `Unblock-File -Path "C:\path\to\DITA-Studio-Portable-2.1.0.exe"`
 3. **Build it yourself**: run `npm install && npm run dist` from the source
    zip on your own machine. Locally built binaries carry no download flag.
 
@@ -361,7 +363,65 @@ On macOS, use **Cmd** wherever **Ctrl** is listed.
 
 ---
 
-## 11. Notes and caveats
+## 11. New in 2.1
+
+### 11.1 Visual (WYSIWYG) editing
+
+Press **Ctrl+Shift+V** (or View → Visual editing mode) on any DITA/LwDITA
+topic or Markdown/MDX file. You get a formatted, directly editable page with
+a toolbar: bold/italic/underline, inline code, lists, section headings,
+links, tables, images, math, and symbols. Press the **Source** button or
+Ctrl+Shift+V again to return; your changes are serialized back into clean
+source. Saving (Ctrl+S) while in visual mode serializes first, so nothing
+is lost.
+
+Blocks that cannot be safely round-tripped — content pulled in by
+`conref`/`conkeyref`/`keyref`, equations, task steps, and any complex or
+unknown element — appear as **locked chips (🔒)**. They are preserved
+verbatim in the file and can be edited in source view. Maps and bookmaps
+have no visual mode (use the Map browser instead). For MDX, JSX components
+pass through untouched; glance at the source before committing.
+
+### 11.2 Math formulas and symbols
+
+* **Edit → Insert math formula…** takes LaTeX with a live preview. In
+  Markdown it inserts `$inline$` or `$$block$$`; in DITA it inserts
+  `<equation-inline>/<equation-block>` with a `<mathphrase>`. Formulas are
+  rendered by KaTeX in the preview, HTML and PDF exports, and doc sites
+  (fonts are copied into the site's `assets/katex/` automatically).
+* **Edit → Insert symbol…** opens a categorized picker: Greek, math
+  operators, arrows, sub/superscripts, units, currency, and CJK punctuation.
+
+### 11.3 Knowledge base (Supabase / PostgREST)
+
+**Tools → Knowledge base (Supabase)…** connects the current project to your
+own backend, so published knowledge stays queryable outside the app. Create
+the table once in the Supabase SQL editor:
+
+```sql
+create table documents (
+  id text primary key, title text, format text,
+  content text, updated_at timestamptz
+);
+```
+
+Then paste your project URL and API key, **Test connection**, and **Sync
+project to knowledge base** — every authoring file is upserted (id = its
+project-relative path), so re-syncing updates rather than duplicates.
+The search box queries titles and content (Chinese included); clicking a
+result opens the local file. Any PostgREST-compatible endpoint works, not
+just Supabase. The key is stored locally and unencrypted — prefer a
+row-level-security anon key over a service-role key.
+
+### 11.4 Chinese authoring
+
+CJK font stacks are applied in the editor, preview, HTML/PDF exports, and
+doc sites. Site search accepts single-character Chinese queries, and pages
+get `lang="zh"` when the site title is Chinese. A dedicated lint rule
+catches full-width quotes/equals typed inside XML tags by an IME (＂ ” ＝)
+and fixes them with one click — body-text quotes are left alone.
+
+## 12. Notes and caveats
 
 - **Unsigned binaries**: see §1.1 (Windows SmartScreen) and §1.2 (macOS
   Gatekeeper). This is cosmetic, not a defect, but if you distribute the tool
@@ -391,7 +451,7 @@ On macOS, use **Cmd** wherever **Ctrl** is listed.
 
 ---
 
-## 12. Running and building from source
+## 13. Running and building from source
 
 ```bash
 npm install
@@ -404,15 +464,27 @@ and an X display (xvfb works). Building on Windows itself needs nothing extra.
 
 ---
 
-## 13. Version history
+## 14. Version history
 
 The full changelog also ships inside the app: **Help → What's new**. Current
-release: **2.0** — AI writing assistant (free local models via Ollama/LM
-Studio, or keyed APIs: Anthropic, OpenAI, DeepSeek, Moonshot Kimi, OpenRouter
-incl. its zero-cost ":free" models), in-app user guide & changelog viewer,
-smoothness pass (persistent tree expansion, cached project reads, ranked
-quick-open, dirty-save indicator), and macOS build support (`npm run
-dist:mac` → .dmg + .zip).
+release: **2.1** — visual (WYSIWYG) editing mode for DITA/LwDITA topics and
+Markdown/MDX with protected round-trip of conref/keyref and complex
+structures; LaTeX math (KaTeX) rendered in preview, HTML, PDF, and doc sites,
+plus an Insert-symbol picker (Greek, math, arrows, sub/superscripts, units,
+currency, CJK punctuation); knowledge-base sync & search to Supabase or any
+PostgREST endpoint; Chinese authoring support (CJK font stacks in all
+outputs, single-character Chinese search in doc sites, full-width-character
+lint with one-click fix); faster cold start (window shown when ready,
+deferred project restore) and general performance work (preview repaint
+skipping, parallel site writes); fixed the AI provider selector that ignored
+selection; licensing switched to Apache 2.0 with NOTICE and contact details.
+
+- **2.0** — AI writing assistant (free local models via Ollama/LM Studio, or
+  keyed APIs: Anthropic, OpenAI, DeepSeek, Moonshot Kimi, OpenRouter incl.
+  its zero-cost ":free" models); in-app user guide & changelog viewer;
+  smoothness pass (persistent tree expansion, cached project reads, ranked
+  quick-open, dirty-save indicator); macOS build support (`npm run dist:mac`
+  → .dmg + .zip).
 
 - **1.9** — syntax checking with fix suggestions and one-click auto-fix for
   Markdown, DITA/XML, and HTML (per-problem Fix buttons plus Fix-all); visual
@@ -462,4 +534,18 @@ dist:mac` → .dmg + .zip).
   drag-and-drop ordering, live preview, HTML/PDF export, dependency queries,
   3-minute autosave with version history, NSIS installer + portable builds.
 
+---
 
+## 15. License and contact
+
+DITA Studio is free software, released under the **Apache License 2.0** —
+you may use, modify, and redistribute it, including commercially, provided
+you keep the license text and the NOTICE attribution (see the `LICENSE` and
+`NOTICE` files shipped with the app and in the repository).
+
+* Author: **Han Fengyan (Galano Han)**
+* Contact: **tengriih@gmail.com** — bug reports, feature requests, and
+  collaboration are all welcome.
+* Project home: <https://github.com/tengri-tianhan/ditastudio>
+
+In-app: **Help → License & contact**.
