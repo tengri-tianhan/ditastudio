@@ -7,7 +7,7 @@ manager, live preview, built-in HTML/PDF publishing, optional DITA-OT
 publishing, dependency queries, live validation, and timed local snapshots —
 without Java, without a license fee, and with sub-second startup.
 
-## Feature overview (current)
+## Feature overview
 
 - Authoring: DITA 1.3 + LwDITA + Markdown + MDX templates (incl. project
 templates with placeholders) · Monaco editor with tabs, folding, multi-cursor
